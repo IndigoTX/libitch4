@@ -10,7 +10,7 @@ namespace Itch {
   };
 
   enum Dispatch_error {
-    D_SUCESS,
+    D_SUCCESS,
     D_UNKNOWN_MESSAGE,
     D_ERROR
   };
