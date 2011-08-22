@@ -3,5 +3,5 @@
 #include <itch_message_types.hh>
 
 int main() {
-  std::cout << Itch::largest_message << std::endl;
+  std::cout << Itch::LARGEST_MESSAGE << std::endl;
 }

@@ -142,7 +142,7 @@ namespace Itch {
   /*
    * Absolutely ridiculous
    */
-  const size_t largest_message = MAX(Timestamp_message,
+  const size_t LARGEST_MESSAGE = MAX(Timestamp_message,
                                      MAX(System_event_message,
                                          MAX(Stock_directory_message,
                                              MAX(Stock_trading_action_message,
