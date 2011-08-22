@@ -1,6 +1,42 @@
 #include <itch_parser.hh>
 
+#include <itch_message_parser.hh>
+
 namespace Itch {
+
+  Parser_state parse_buffer(Buffer &buffer, Message &message) {
+    static Message_parser const parsers[26] = {
+      parse_add_order_no_mpid_message, // A
+      parse_broken_trade_message, // B
+      parse_order_executed_with_price_message, // C
+      parse_order_delete_message, // D
+      parse_order_executed_message, // E
+      parse_add_order_with_mpid_message, // F
+      0, // G
+      parse_stock_trading_action_message, // H
+      parse_broken_trade_message, // I
+      0, // J
+      0, // K
+      parse_market_participant_message, // L
+      0, // M
+      0, // N
+      0, // O
+      parse_trade_message, // P
+      parse_cross_trade_message, // Q
+      parse_system_directory_message, // R
+      parse_system_event_message, // S
+      parse_timestamp_message, // T
+      parse_order_replace_message, // U
+      0, // V
+      0, // W
+      parse_order_cancel_message, // X
+      parse_reg_sho_message, // Y
+      0, // Z
+    };
+    
+  }
+
+  
   Dispatch_error Message::dispatch(Message_switch &message_switch) const {
     switch(message_type()) {
     case MT_TIMESTAMP:
