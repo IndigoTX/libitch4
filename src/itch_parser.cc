@@ -2,38 +2,53 @@
 
 #include <itch_message_parser.hh>
 
+namespace {
+  struct Message_entry {
+    size_t message_length;
+    Message_parser message_parser;
+  };
+}
+
 namespace Itch {
 
   Parser_state parse_buffer(Buffer &buffer, Message &message) {
-    static Message_parser const parsers[26] = {
-      parse_add_order_no_mpid_message, // A
-      parse_broken_trade_message, // B
-      parse_order_executed_with_price_message, // C
-      parse_order_delete_message, // D
-      parse_order_executed_message, // E
-      parse_add_order_with_mpid_message, // F
-      0, // G
-      parse_stock_trading_action_message, // H
-      parse_broken_trade_message, // I
-      0, // J
-      0, // K
-      parse_market_participant_message, // L
-      0, // M
-      0, // N
-      0, // O
-      parse_trade_message, // P
-      parse_cross_trade_message, // Q
-      parse_system_directory_message, // R
-      parse_system_event_message, // S
-      parse_timestamp_message, // T
-      parse_order_replace_message, // U
-      0, // V
-      0, // W
-      parse_order_cancel_message, // X
-      parse_reg_sho_message, // Y
-      0, // Z
+    static Message_entry const parsers[26] = {
+      {30, parse_add_order_no_mpid_message}, // A
+      {13, parse_broken_trade_message}, // B
+      {30, parse_order_executed_with_price_message}, // C
+      {13, parse_order_delete_message}, // D
+      {25, parse_order_executed_message}, // E
+      {34, parse_add_order_with_mpid_message}, // F
+      {0, 0}, // G
+      {19, parse_stock_trading_action_message}, // H
+      {44, parse_net_order_imbalance_indicator_message}, // I
+      {0, 0}, // J
+      {0, 0}, // K
+      {20, parse_market_participant_message}, // L
+      {0, 0}, // M
+      {0, 0}, // N
+      {0, 0}, // O
+      {38, parse_trade_message}, // P
+      {34, parse_cross_trade_message}, // Q
+      {20, parse_system_directory_message}, // R
+      {6, parse_system_event_message}, // S
+      {5, parse_timestamp_message}, // T
+      {29, parse_order_replace_message}, // U
+      {0, 0}, // V
+      {0, 0}, // W
+      {17, parse_order_cancel_message}, // X
+      {14, parse_reg_sho_message}, // Y
+      {0, 0}, // Z
     };
-    
+
+    if(buffer.size() > 0 && parsers[buffer[0]].message_length <= buffer.size()) {
+      Parser_state ret = parsers[buffer[0]].message_parser(buffer, message);
+      buffer.consume(parsers[buffer[0]].message_length);
+      return ret;
+    }
+    else {
+      return PS_NEED_MORE;
+    }
   }
 
   

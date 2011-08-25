@@ -5,8 +5,9 @@
 
 namespace Itch {
   enum Parser_state {
+    PS_SUCCESS,
     PS_NEED_MORE,
-    PS_READ_MESSAGE
+    PS_PARSE_ERROR
   };
 
   enum Dispatch_error {
@@ -16,54 +17,52 @@ namespace Itch {
   };
   
   struct Message_switch {
-    Dispatch_error handle(Timestamp_message const &timestamp_message) = 0;
-    Dispatch_error handle(System_event_message const &system_event_message) = 0;
-    Dispatch_error handle(Stock_directory_message const &stock_directory_message) = 0;
-    Dispatch_error handle(Stock_trading_action_message const &stock_trading_action_message) = 0;
-    Dispatch_error handle(Reg_sho_message const &reg_sho_message) = 0;
-    Dispatch_error handle(Market_participant_message const &market_participant_message) = 0;
-    Dispatch_error handle(Add_order_no_mpid_message const &add_order_no_mpid_message) = 0;
-    Dispatch_error handle(Add_order_with_mpid_message const &add_order_with_mpid_message) = 0;
-    Dispatch_error handle(Order_executed_message const &order_executed_message) = 0;
-    Dispatch_error handle(Order_executed_with_price_message const &order_executed_with_price_message) = 0;
-    Dispatch_error handle(Order_cancel_message const &order_cancel_message) = 0;
-    Dispatch_error handle(Order_delete_message const &order_delete_message) = 0;
-    Dispatch_error handle(Order_replace_message const &order_replace_message) = 0;
-    Dispatch_error handle(Trade_message const &trade_message) = 0;
-    Dispatch_error handle(Cross_trade_message const &cross_trade_message) = 0;
-    Dispatch_error handle(Broken_trade_message const &broken_trade_message) = 0;
-    Dispatch_error handle(Net_order_imbalance_indicator_message const &net_order_imbalance_indicator_message) = 0;
+    virtual Dispatch_error handle(Timestamp_message const &timestamp_message) = 0;
+    virtual Dispatch_error handle(System_event_message const &system_event_message) = 0;
+    virtual Dispatch_error handle(Stock_directory_message const &stock_directory_message) = 0;
+    virtual Dispatch_error handle(Stock_trading_action_message const &stock_trading_action_message) = 0;
+    virtual Dispatch_error handle(Reg_sho_message const &reg_sho_message) = 0;
+    virtual Dispatch_error handle(Market_participant_message const &market_participant_message) = 0;
+    virtual Dispatch_error handle(Add_order_no_mpid_message const &add_order_no_mpid_message) = 0;
+    virtual Dispatch_error handle(Add_order_with_mpid_message const &add_order_with_mpid_message) = 0;
+    virtual Dispatch_error handle(Order_executed_message const &order_executed_message) = 0;
+    virtual Dispatch_error handle(Order_executed_with_price_message const &order_executed_with_price_message) = 0;
+    virtual Dispatch_error handle(Order_cancel_message const &order_cancel_message) = 0;
+    virtual Dispatch_error handle(Order_delete_message const &order_delete_message) = 0;
+    virtual Dispatch_error handle(Order_replace_message const &order_replace_message) = 0;
+    virtual Dispatch_error handle(Trade_message const &trade_message) = 0;
+    virtual Dispatch_error handle(Cross_trade_message const &cross_trade_message) = 0;
+    virtual Dispatch_error handle(Broken_trade_message const &broken_trade_message) = 0;
+    virtual Dispatch_error handle(Net_order_imbalance_indicator_message const &net_order_imbalance_indicator_message) = 0;
   };
 
   struct Message_switch_noop : public Message_switch {
-    Dispatch_error handle(Timestamp_message const &) {}
-    Dispatch_error handle(System_event_message const &) {}
-    Dispatch_error handle(Stock_directory_message const &) {}
-    Dispatch_error handle(Stock_trading_action_message const &) {}
-    Dispatch_error handle(Reg_sho_message const &) {}
-    Dispatch_error handle(Market_participant_message const &) {}
-    Dispatch_error handle(Add_order_no_mpid_message const &) {}
-    Dispatch_error handle(Add_order_with_mpid_message const &) {}
-    Dispatch_error handle(Order_executed_message const &) {}
-    Dispatch_error handle(Order_executed_with_price_message const &) {}
-    Dispatch_error handle(Order_cancel_message const &) {}
-    Dispatch_error handle(Order_delete_message const &) {}
-    Dispatch_error handle(Order_replace_message const &) {}
-    Dispatch_error handle(Trade_message const &) {}
-    Dispatch_error handle(Cross_trade_message const &) {}
-    Dispatch_error handle(Broken_trade_message const &) {}
-    Dispatch_error handle(Net_order_imbalance_indicator_message const &) {}    
+    Dispatch_error handle(Timestamp_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(System_event_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Stock_directory_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Stock_trading_action_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Reg_sho_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Market_participant_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Add_order_no_mpid_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Add_order_with_mpid_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Order_executed_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Order_executed_with_price_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Order_cancel_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Order_delete_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Order_replace_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Trade_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Cross_trade_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Broken_trade_message const &) { return D_SUCCESS; }
+    Dispatch_error handle(Net_order_imbalance_indicator_message const &) { return D_SUCCESS; }
   };
   
-  class Message {
-  public:
+  struct Message {
     Dispatch_error dispatch(Message_switch &message_switch) const;
 
     Message_types message_type() const {
       return current_message;
     }
     
-  private:
     Message_types current_message;
     
     union {

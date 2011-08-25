@@ -12,13 +12,12 @@ namespace Itch {
   };
 
   struct System_event_message {
-    Timestamp timestamp;
-
+    Nanoseconds nanoseconds;
     System_event_code sec;
   };
 
   struct Stock_directory_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Stock_symbol stock_symbol;
     Market_category market_category;
     Financial_status_indicator financial_status_indicator;
@@ -27,20 +26,20 @@ namespace Itch {
   };
 
   struct Stock_trading_action_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Stock_symbol stock_symbol;
     Trading_state trading_state;
     Fixed_array<unsigned char, 4> reason;
   };
 
   struct Reg_sho_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Stock_symbol stock_symbol;
     Reg_sho_action reg_sho_action;
   };
 
   struct Market_participant_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Mpid mpid;
     Stock_symbol stock_symbol;
     Primary_market_maker primary_market_maker;
@@ -49,7 +48,7 @@ namespace Itch {
   };
 
   struct Add_order_no_mpid_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number order_reference_number;
     Buy_sell_indicator buy_sell_indicator;
     Shares shares;
@@ -58,7 +57,7 @@ namespace Itch {
   };
 
   struct Add_order_with_mpid_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number order_reference_number;
     Buy_sell_indicator buy_sell_indicator;
     Shares shares;
@@ -68,14 +67,14 @@ namespace Itch {
   };
 
   struct Order_executed_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number order_reference_number;
     Shares executed_shares;
     Match_number match_number;
   };
 
   struct Order_executed_with_price_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number order_reference_number;
     Shares executed_shares;
     Match_number match_number;
@@ -84,18 +83,18 @@ namespace Itch {
   };
 
   struct Order_cancel_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number order_reference_number;
     Shares canceled_shares;
   };
 
   struct Order_delete_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number order_reference_number;
   };
 
   struct Order_replace_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number original_order_reference_number;
     Order_reference_number new_order_reference_number;
     Shares shares;
@@ -103,7 +102,7 @@ namespace Itch {
   };
 
   struct Trade_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Order_reference_number order_reference_number;
     Buy_sell_indicator buy_sell_indicator;
     Shares shares;
@@ -113,7 +112,7 @@ namespace Itch {
   };
 
   struct Cross_trade_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Shares shares;
     Stock_symbol stock_symbol;
     Price cross_price;
@@ -122,14 +121,14 @@ namespace Itch {
   };
 
   struct Broken_trade_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Match_number match_number;
   };
 
   struct Net_order_imbalance_indicator_message {
-    Timestamp timestamp;
+    Nanoseconds nanoseconds;
     Shares paired_shares;
-    Imbalance imbalance;
+    Shares imbalance_shares;
     Imbalance_direction imbalance_direction;
     Stock_symbol stock_symbol;
     Price far_price;

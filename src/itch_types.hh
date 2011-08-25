@@ -33,7 +33,7 @@ namespace Itch {
     /* Order Replace Message */
     MT_ORM = 'U',
     /* Trade Message */
-    MT_TRADEM = 'T',
+    MT_TRADEM = 'P',
     /* Cross Trade Message */
     MT_CROSSTRADEM = 'Q',
     /* Broken Trade Message */

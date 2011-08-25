@@ -6,21 +6,20 @@
 
 namespace Itch {
 
+  /*
+   * This is a fixed array that is meant to be usable in a union so it has none
+   * of the glory of a real class in C++
+   */
   template <typename T, size_t N>
   struct Fixed_array {
     typedef T *iterator;
     typedef T const *const_iterator;
     
-    void assign(iterator i_begin, iterator i_end) {
+    void assign(const_iterator i_begin, const_iterator i_end) {
       assert(std::distance(i_begin, i_end) >= 0 && static_cast<size_t>(std::distance(i_begin, i_end)) <= N);
       std::copy(i_begin, i_end, begin());
     }
     
-    Fixed_array<T, N> &operator=(Fixed_array<T, N> const &fbs) {
-      std::copy(fbs.begin(), fbs.end(), begin());
-      return *this;
-    }
-
     T const &operator[](size_t idx) const {
       assert(idx < N);
       return data_[idx];
