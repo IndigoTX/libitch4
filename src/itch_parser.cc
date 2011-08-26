@@ -5,7 +5,7 @@
 namespace {
   struct Message_entry {
     size_t message_length;
-    Message_parser message_parser;
+    Itch4::Message_parser message_parser;
   };
 }
 
@@ -43,7 +43,7 @@ namespace Itch4 {
 
     if(buffer.size() > 0 && parsers[buffer[0]].message_length <= buffer.size()) {
       Parser_state ret = parsers[buffer[0]].message_parser(buffer, message);
-      buffer.consume(parsers[buffer[0]].message_length);
+      //buffer.consume(parsers[buffer[0]].message_length);
       return ret;
     }
     else {
