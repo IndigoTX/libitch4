@@ -5,7 +5,7 @@
 
 #include <itch_message_types.hh>
 
-namespace Itch {
+namespace Itch4 {
 
   /*
    * N is the maximum number of largest messages the buffer can hold

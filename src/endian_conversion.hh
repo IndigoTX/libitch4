@@ -3,7 +3,7 @@
 
 #include <cstdint>
 
-namespace Itch {
+namespace Itch4 {
   
 #ifdef LITTLE_ENDIAN
   inline std::uint16_t network_to_host_16(std::uint16_t i) {

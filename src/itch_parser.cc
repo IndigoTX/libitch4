@@ -9,7 +9,7 @@ namespace {
   };
 }
 
-namespace Itch {
+namespace Itch4 {
 
   Parser_state parse_buffer(Buffer &buffer, Message &message) {
     static Message_entry const parsers[26] = {

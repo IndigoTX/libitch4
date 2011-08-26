@@ -6,7 +6,7 @@
 
 #define MAX(T1, EXPR) (Max<sizeof (T1), EXPR>::val)
 
-namespace Itch {
+namespace Itch4 {
   struct Timestamp_message {
     Seconds seconds;
   };

@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace Itch {
+namespace Itch4 {
 
   /*
    * This is a fixed array that is meant to be usable in a union so it has none

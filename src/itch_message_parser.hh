@@ -3,7 +3,7 @@
 
 #include <itch_parser.hh>
 
-namespace Itch {
+namespace Itch4 {
   typedef Parser_state (*Message_parser)(Buffer &, Message &);
 
   Parser_state parse_add_order_no_mpid_message(Buffer const &buffer, Message &message);

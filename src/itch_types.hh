@@ -5,7 +5,7 @@
 
 #include <fixed_array.hh>
 
-namespace Itch {
+namespace Itch4 {
   enum Message_types {
     MT_TIMESTAMP = 'T',
     /* System Event Message */

@@ -3,7 +3,7 @@
 
 #include <itch_buffer.hh>
 
-namespace Itch {
+namespace Itch4 {
   enum Parser_state {
     PS_SUCCESS,
     PS_NEED_MORE,

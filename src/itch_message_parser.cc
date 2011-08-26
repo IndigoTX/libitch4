@@ -8,15 +8,15 @@
 
 namespace {
   std::uint32_t convert_uint32(unsigned char const *pos) {
-    return Itch::network_to_host_32(*reinterpret_cast<std::uint32_t const*>(pos));
+    return Itch4::network_to_host_32(*reinterpret_cast<std::uint32_t const*>(pos));
   }
 
   std::uint64_t convert_uint64(unsigned char const *pos) {
-    return Itch::network_to_host_64(*reinterpret_cast<std::uint64_t const*>(pos));
+    return Itch4::network_to_host_64(*reinterpret_cast<std::uint64_t const*>(pos));
   }
 }  
 
-namespace Itch {
+namespace Itch4 {
   Parser_state parse_add_order_no_mpid_message(Buffer const &buffer, Message &message) {
     Add_order_no_mpid_message &msg = message.message_types.add_order_no_mpid_message;
 
