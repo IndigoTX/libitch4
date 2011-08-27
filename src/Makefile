@@ -21,6 +21,8 @@ itch_buffer.hh : itch_message_types.hh
 
 itch_message_types.hh : max_integer.hh itch_types.hh
 
+itch_types.hh : fixed_array.hh
+
 endian_conversion.hh : 
 
 .PHONY : clean

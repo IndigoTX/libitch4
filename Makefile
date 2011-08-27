@@ -1,5 +1,13 @@
-export CXXFLAGS = -ggdb3 -std=c++0x -W -Wall -Wextra -pedantic
+export CXXFLAGS = -std=c++0x -W -Wall -Wextra -pedantic
 SUBDIRS = src tests
+
+ifeq ($(LITTLE_ENDIAN),yes)
+	export CXXFLAGS += -DLITTLE_ENDIAN
+endif
+
+ifeq ($(NDEBUG),yes)
+	export CXXFLAGS += -DNDEBUG
+endif
 
 .PHONY : subdirs $(SUBDIRS)
 
