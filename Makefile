@@ -1,5 +1,7 @@
 export CXXFLAGS = -std=c++0x -W -Wall -Wextra -pedantic
+LDFLAGS = -stdlib=libc++
 SUBDIRS = src tests
+
 
 ifeq ($(LITTLE_ENDIAN),yes)
 	export CXXFLAGS += -DLITTLE_ENDIAN

@@ -2,6 +2,9 @@
 
 #include <itch_message_parser.hh>
 
+#include <iostream>
+#include <cassert>
+
 namespace {
   struct Message_entry {
     size_t message_length;
@@ -41,9 +44,19 @@ namespace Itch4 {
       {0, 0}, // Z
     };
 
-    if(buffer.size() > 0 && parsers[buffer[0]].message_length <= buffer.size()) {
-      Parser_state ret = parsers[buffer[0]].message_parser(buffer, message);
-      //buffer.consume(parsers[buffer[0]].message_length);
+    // Get alpha position
+    int alpha_pos = buffer[0] - 65;
+
+    if(!(alpha_pos >=0 && alpha_pos < 26));
+        return PS_PARSE_ERROR;
+
+    Message_entry message_entry = parsers[alpha_pos];
+
+    if(buffer.capacity() > 0 && message_entry.message_length <= buffer.capacity())
+    {
+      message.current_message = static_cast<Message_types>(buffer[0]);
+      Parser_state ret = message_entry.message_parser(buffer, message);
+      //buffer.erase(buffer.begin(), buffer.begin() + message_entry.message_length);
       return ret;
     }
     else {
