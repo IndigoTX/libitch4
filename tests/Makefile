@@ -1,9 +1,11 @@
 OUTPUT = itch_parser_test
 OBJECTS = itch_parser_test.o
 
-CPPFLAGS += -I../src -std=c++0x -stdlib=libc++
+CC = g++
+CPPFLAGS += -I../src -std=c++0x
 LDFLAGS += -L../src
-LDLIBS += -litch4 -stdlib=libc++
+LDLIBS += -litch4
+
 .PHONY : all
 all : $(OUTPUT)
 

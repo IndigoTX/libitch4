@@ -1,5 +1,4 @@
 export CXXFLAGS = -std=c++0x -W -Wall -Wextra -pedantic
-LDFLAGS = -stdlib=libc++
 SUBDIRS = src tests
 
 

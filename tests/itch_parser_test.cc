@@ -14,23 +14,11 @@ using namespace std;
 using namespace Itch4;
 
 
-int main(int argc, char *argv[])
-{
-  if (argc < 1)
-  {
-    cout << "First argument must be a file of input messages" << endl;
-    return 1;
-  }
+int main() {
    
-  ifstream file (argv[1], ios::in|ios::binary|ios::ate);
+  istream &file = cin;
 
-  ifstream::pos_type size;
-
-  if (file.is_open())
-  {
-    size = file.tellg();
-    file.seekg(0, ios::beg);
-
+  if (file) {
     int16_t packet_length;
 
     Buffer b;
@@ -39,39 +27,38 @@ int main(int argc, char *argv[])
     Message msg;
     Parser_state p_state;
 
-    int counter = 0; 
+    unsigned long long counter = 0; 
 
-    while(file.good())
-    {
-        // Parse soupBinTCP
-        // Get the packet length
-        file.read(reinterpret_cast<char*>(&packet_length), 2);
-        packet_length = Itch4::network_to_host_16(packet_length); 
-
-        // Get the payload (message)
-        file.read(reinterpret_cast<char*>(&b.front()), packet_length);
-
-        
+    Message_switch_count message_dispatcher;
+    
+    while(file.read(reinterpret_cast<char*>(&packet_length), 2)) {
+      // Parse soupBinTCP
+      // Get the packet length
+      packet_length = Itch4::network_to_host_16(packet_length); 
+      
+      // Get the payload (message)
+      if(file.read(reinterpret_cast<char*>(&b.front()), packet_length)) {
+            
         // Parse the message
         p_state = parse_buffer(b, msg);
- 
-        switch(p_state)
-        {
-            case PS_SUCCESS:
-                msg.dispatch(message_dispatcher);
-                break;
-            case PS_NEED_MORE: cout << "need more" << endl; break;
-            case PS_PARSE_ERROR: cout << "parse error" << endl; exit(1); break;
-            default: break;
+        
+        switch(p_state) {
+        case PS_SUCCESS:
+          msg.dispatch(message_dispatcher);
+          break;
+        case PS_NEED_MORE: cout << "need more" << endl; break;
+        case PS_PARSE_ERROR: cout << "parse error" << endl; exit(1); break;
+        default: break;
         }
         counter++;
+      }
     }
     cout << counter << endl;
-
-    // close the file
-    file.close();
+    message_dispatcher.print_counts();
   }
-  else cout << "Unable to open file";
+  else {
+    cout << "Unable to open file";
+  }
 
   return 0;
 

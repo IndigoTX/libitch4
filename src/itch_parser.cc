@@ -2,14 +2,37 @@
 
 #include <itch_message_parser.hh>
 
-#include <iostream>
-#include <cassert>
-
 namespace {
+  unsigned int const INDEX_NOT_FOUND = 26;
+  
   struct Message_entry {
     size_t message_length;
     Itch4::Message_parser message_parser;
   };
+
+  /*
+   * A more efficient implementation should be decided,
+   * at compile time, that is appropriate for the platform
+   *
+   * Returns INDEX_NOT_FOUND on failure
+   */
+  unsigned int letter_to_index(unsigned int letter) {
+    static const unsigned char alphabet[] = { 'A', 'B', 'C', 'D', 'E', 'F',
+                                              'G', 'H', 'I', 'J', 'K', 'L',
+                                              'M', 'N', 'O', 'P', 'Q', 'R',
+                                              'S', 'T', 'U', 'V', 'W', 'X',
+                                              'Y', 'Z'};
+
+    for(unsigned int i = 0; i < sizeof alphabet; ++i) {
+      if(letter == alphabet[i]) {
+        return i;
+      }
+    }
+
+    return INDEX_NOT_FOUND;
+  }
+                                    
+
 }
 
 namespace Itch4 {
@@ -45,9 +68,9 @@ namespace Itch4 {
     };
 
     // Get alpha position
-    int alpha_pos = buffer[0] - 65;
+    unsigned int alpha_pos = letter_to_index(buffer[0]);
 
-    if(!(alpha_pos >=0 && alpha_pos < 26));
+    if(INDEX_NOT_FOUND == alpha_pos)
         return PS_PARSE_ERROR;
 
     Message_entry message_entry = parsers[alpha_pos];
@@ -56,7 +79,6 @@ namespace Itch4 {
     {
       message.current_message = static_cast<Message_types>(buffer[0]);
       Parser_state ret = message_entry.message_parser(buffer, message);
-      //buffer.erase(buffer.begin(), buffer.begin() + message_entry.message_length);
       return ret;
     }
     else {
