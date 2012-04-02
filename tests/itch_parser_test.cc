@@ -15,7 +15,9 @@ using namespace Itch4;
 
 
 int main() {
-   
+  std::ios_base::sync_with_stdio(false);
+
+  
   istream &file = cin;
 
   if (file) {
