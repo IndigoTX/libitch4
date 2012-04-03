@@ -2,37 +2,30 @@
 
 #include <itch_message_parser.hh>
 
+#include <ascii_table.hh>
+
 namespace {
   unsigned int const INDEX_NOT_FOUND = 26;
-  
+
   struct Message_entry {
     size_t message_length;
     Itch4::Message_parser message_parser;
   };
 
   /*
-   * A more efficient implementation should be decided,
-   * at compile time, that is appropriate for the platform
+   * We know that the messages coming in are encoding using ASCII
+   * so we can use obvious ASCII transformations
+   * (nice catch Jon)
    *
    * Returns INDEX_NOT_FOUND on failure
    */
   unsigned int letter_to_index(unsigned int letter) {
-    static const unsigned char alphabet[] = { 'A', 'B', 'C', 'D', 'E', 'F',
-                                              'G', 'H', 'I', 'J', 'K', 'L',
-                                              'M', 'N', 'O', 'P', 'Q', 'R',
-                                              'S', 'T', 'U', 'V', 'W', 'X',
-                                              'Y', 'Z'};
-
-    for(unsigned int i = 0; i < sizeof alphabet; ++i) {
-      if(letter == alphabet[i]) {
-        return i;
-      }
+    if(letter >= Itch4::ASCII_A && letter <= Itch4::ASCII_Z) {
+      return letter - Itch4::ASCII_A;
     }
 
     return INDEX_NOT_FOUND;
   }
-                                    
-
 }
 
 namespace Itch4 {

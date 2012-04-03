@@ -5,41 +5,43 @@
 
 #include <fixed_array.hh>
 
+#include <ascii_table.hh>
+
 namespace Itch4 {
   enum Message_types {
-    MT_TIMESTAMP = 'T',
+    MT_TIMESTAMP = ASCII_T,
     /* System Event Message */
-    MT_SEM = 'S',
+    MT_SEM = ASCII_S,
     /* Stock Directory Message */
-    MT_SDM = 'R',
+    MT_SDM = ASCII_R,
     /* Stock Trading Action Message */
-    MT_STAM = 'H',
+    MT_STAM = ASCII_H,
     /* Reg SHO Short Sale Price Test Restricted Indicator Message */
-    MT_RSSSPTM = 'Y',
+    MT_RSSSPTM = ASCII_Y,
     /* Market Participant Position Message */
-    MT_MPPM = 'L',
+    MT_MPPM = ASCII_L,
     /* Add Order No MPID Message */
-    MT_AONMM = 'A',
+    MT_AONMM = ASCII_A,
     /* Add Order With MPID Message */
-    MT_AOWMM = 'F',
+    MT_AOWMM = ASCII_F,
     /* Order Executed Message */
-    MT_OEM = 'E',
+    MT_OEM = ASCII_E,
     /* Order Executed With Price Message */
-    MT_OEWPM = 'C',
+    MT_OEWPM = ASCII_C,
     /* Order Cancel Message */
-    MT_OCM = 'X',
+    MT_OCM = ASCII_X,
     /* Order Delete Message */
-    MT_ODM = 'D',
+    MT_ODM = ASCII_D,
     /* Order Replace Message */
-    MT_ORM = 'U',
+    MT_ORM = ASCII_U,
     /* Trade Message */
-    MT_TRADEM = 'P',
+    MT_TRADEM = ASCII_P,
     /* Cross Trade Message */
-    MT_CROSSTRADEM = 'Q',
+    MT_CROSSTRADEM = ASCII_Q,
     /* Broken Trade Message */
-    MT_BROKENTRADEM = 'B',
+    MT_BROKENTRADEM = ASCII_B,
     /* Net Order Imbalance Indicator Message */
-    MT_NOIIM = 'I'
+    MT_NOIIM = ASCII_I
   };
 
   
