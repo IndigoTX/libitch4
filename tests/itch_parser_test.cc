@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <cstdint>
 
 #include <itch_parser.hh>
 #include <endian_conversion.hh>

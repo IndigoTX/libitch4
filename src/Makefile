@@ -1,7 +1,7 @@
 SOURCES = itch_message_parser.cc itch_parser.cc
 OBJECTS = $(patsubst %.cc,%.o,$(SOURCES))
 CPPFLAGS ?= -I.
-CXXFLAGS += -O3 -std=c++0x -W -Wall -Wextra -pedantic
+CXXFLAGS ?= -O3 -std=c++0x -W -Wall -Wextra -pedantic
 
 .PHONY : all
 all : $(OBJECTS) libitch4.a
